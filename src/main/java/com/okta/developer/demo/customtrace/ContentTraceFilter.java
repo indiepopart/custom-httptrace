@@ -30,7 +30,7 @@ public class ContentTraceFilter extends OncePerRequestFilter implements Ordered 
 	@Autowired
 	protected ContentTraceManager traceManager;
 	
-	@Value("${management.trace.http.tracebody}")
+	@Value("${management.trace.http.tracebody:false}")
 	protected boolean traceBody;
 	
 	@Override
