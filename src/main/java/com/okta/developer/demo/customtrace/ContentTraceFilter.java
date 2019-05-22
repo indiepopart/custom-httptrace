@@ -12,64 +12,53 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
 @Component
-@ConditionalOnProperty(prefix = "management.trace.http", name="enabled", matchIfMissing=true)
-public class ContentTraceFilter extends OncePerRequestFilter implements Ordered {
-	
-	private int order = Ordered.LOWEST_PRECEDENCE;
-	
-	@Autowired
-	protected CustomHttpTraceRepository repository;
-	
-	@Autowired
-	protected ContentTraceManager traceManager;
-	
-	@Value("${management.trace.http.tracebody:false}")
-	protected boolean traceBody;
-	
-	@Override
-	public int getOrder() {
-		return order;
-	}
+@ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
+public class ContentTraceFilter extends OncePerRequestFilter {
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+    @Autowired
+    protected ContentTraceManager traceManager;
 
-		if (!isRequestValid(request) || !traceBody) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-		try {
-			ContentCachingRequestWrapper wrappedRequest = new ContentCachingRequestWrapper(request, 1000);
-			ContentCachingResponseWrapper wrappedResponse = new ContentCachingResponseWrapper(response);
+    @Value("${management.trace.http.tracebody:false}")
+    protected boolean traceBody;
 
-			
-			filterChain.doFilter(wrappedRequest, wrappedResponse);
-			
-			traceManager.updateBody(wrappedRequest, wrappedResponse);
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+            HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-			wrappedResponse.copyBodyToResponse();
-			
-		}
-		finally {
-		}	
-}
-	
-	private boolean isRequestValid(HttpServletRequest request) {
-		try {
-			new URI(request.getRequestURL().toString());
-			return true;
-		}
-		catch (URISyntaxException ex) {
-			return false;
-		}
-	}
+        if (!isRequestValid(request) || !traceBody) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
+        ContentCachingRequestWrapper wrappedRequest = new ContentCachingRequestWrapper(
+                request, 1000);
+        ContentCachingResponseWrapper wrappedResponse = new ContentCachingResponseWrapper(
+                response);
+        try {
+
+            filterChain.doFilter(wrappedRequest, wrappedResponse);
+
+            traceManager.updateBody(wrappedRequest, wrappedResponse);
+
+        } finally {
+            wrappedResponse.copyBodyToResponse();
+        }
+    }
+
+    private boolean isRequestValid(HttpServletRequest request) {
+        try {
+            new URI(request.getRequestURL().toString());
+            return true;
+        } catch (URISyntaxException ex) {
+            return false;
+        }
+    }
 
 }

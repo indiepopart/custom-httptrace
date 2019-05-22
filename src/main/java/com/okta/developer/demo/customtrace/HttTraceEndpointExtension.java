@@ -12,16 +12,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EndpointWebExtension(endpoint = HttpTraceEndpoint.class)
-@ConditionalOnProperty(prefix = "management.trace.http", name="enabled", matchIfMissing=true)
+@ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class HttTraceEndpointExtension {
-	
-	@Autowired
-	protected CustomHttpTraceRepository repository;
 
-	@ReadOperation
-	public ContentTraceDescriptor contents() {
-		List<ContentTrace> traces = repository.findAllWithContent();
-		return new ContentTraceDescriptor(traces);
-	}
+    @Autowired
+    protected CustomHttpTraceRepository repository;
 
+    @ReadOperation
+    public ContentTraceDescriptor contents() {
+        List<ContentTrace> traces = repository.findAllWithContent();
+        return new ContentTraceDescriptor(traces);
+    }
 }

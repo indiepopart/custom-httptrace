@@ -1,6 +1,5 @@
 package com.okta.developer.demo;
 
-
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -10,14 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @Order(1)
-@ConditionalOnProperty(prefix = "management.trace.http", name="enabled", havingValue="false")
+@ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", havingValue = "false")
 public class ActuatorSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http
-    	.requestMatcher(EndpointRequest.toAnyEndpoint())
-    	.authorizeRequests()
-		.anyRequest().permitAll();
+        http.requestMatcher(EndpointRequest.toAnyEndpoint())
+                .authorizeRequests().anyRequest().permitAll();
     }
 }

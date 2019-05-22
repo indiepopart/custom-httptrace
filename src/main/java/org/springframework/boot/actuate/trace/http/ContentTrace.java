@@ -4,55 +4,55 @@ import org.springframework.security.core.Authentication;
 
 public class ContentTrace {
 
-	protected HttpTrace httpTrace;
-	
-	protected String requestBody;
-	
-	protected String responseBody;
+    protected HttpTrace httpTrace;
 
-	protected Authentication principal;
-	
-	public ContentTrace() {
-		
-	}
-	
-	public ContentTrace(HttpTrace httpTrace) {
-		this.httpTrace = httpTrace;
-	}
+    protected String requestBody;
 
-	public HttpTrace getHttpTrace() {
-		return httpTrace;
-	}
+    protected String responseBody;
 
-	public void setHttpTrace(HttpTrace httpTrace) {
-		this.httpTrace = httpTrace;
-		if (this.principal != null) {
-			this.httpTrace.setPrincipal(principal);
-			this.principal = null;
-		}
-	}
+    protected Authentication principal;
 
-	public String getRequestBody() {
-		return requestBody;
-	}
+    protected Object some;
 
-	public void setRequestBody(String requestBody) {
-		this.requestBody = requestBody;
-	}
+    public ContentTrace() {
 
-	public String getResponseBody() {
-		return responseBody;
-	}
+    }
 
-	public void setResponseBody(String responseBody) {
-		this.responseBody = responseBody;
-	}
+    public ContentTrace(HttpTrace httpTrace) {
+        this.httpTrace = httpTrace;
+    }
 
-	public void setPrincipal(Authentication authentication) {
-		this.principal = authentication;
-		
-	}
-	
-	
-	
+    public HttpTrace getHttpTrace() {
+        return httpTrace;
+    }
+
+    public void setHttpTrace(HttpTrace httpTrace) {
+        this.httpTrace = httpTrace;
+        if (this.principal != null) {
+            this.httpTrace.setPrincipal(principal);
+            this.principal = null;
+        }
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
+    }
+
+    public String getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
+    }
+
+    public void setPrincipal(Authentication authentication) {
+        this.principal = authentication;
+
+    }
+
 }
