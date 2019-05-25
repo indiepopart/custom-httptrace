@@ -16,5 +16,4 @@ public class HelloController {
     public String getGreeting(Principal user) {
         return "Buenos días " + user.getName();
     }
-
 }

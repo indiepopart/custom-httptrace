@@ -5,14 +5,9 @@ import org.springframework.security.core.Authentication;
 public class ContentTrace {
 
     protected HttpTrace httpTrace;
-
     protected String requestBody;
-
     protected String responseBody;
-
     protected Authentication principal;
-
-    protected Object some;
 
     public ContentTrace() {
 
