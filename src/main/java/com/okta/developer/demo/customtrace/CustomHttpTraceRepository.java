@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,8 +17,12 @@ public class CustomHttpTraceRepository implements HttpTraceRepository {
 
     protected final List<ContentTrace> contents = new LinkedList<>();
 
-    @Autowired
     protected ContentTraceManager traceManager;
+    
+    public CustomHttpTraceRepository(ContentTraceManager traceManager) {
+        super();
+        this.traceManager = traceManager;
+    }
 
     @Override
     public void add(HttpTrace trace) {

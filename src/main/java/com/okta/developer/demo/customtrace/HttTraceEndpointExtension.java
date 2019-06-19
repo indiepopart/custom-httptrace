@@ -2,7 +2,6 @@ package com.okta.developer.demo.customtrace;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
@@ -14,8 +13,12 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class HttTraceEndpointExtension {
 
-    @Autowired
     protected CustomHttpTraceRepository repository;
+        
+    public HttTraceEndpointExtension(CustomHttpTraceRepository repository) {
+        super();
+        this.repository = repository;
+    }
 
     @ReadOperation
     public ContentTraceDescriptor contents() {

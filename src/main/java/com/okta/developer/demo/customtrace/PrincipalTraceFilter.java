@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,11 +19,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class PrincipalTraceFilter extends OncePerRequestFilter {
 
-    @Autowired
     protected ContentTraceManager traceManager;
 
-    @Autowired
-    protected HttpTraceProperties traceProperties;
+    protected HttpTraceProperties traceProperties;        
+
+    public PrincipalTraceFilter(ContentTraceManager traceManager,
+            HttpTraceProperties traceProperties) {
+        super();
+        this.traceManager = traceManager;
+        this.traceProperties = traceProperties;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

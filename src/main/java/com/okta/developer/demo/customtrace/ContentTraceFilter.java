@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -21,11 +20,15 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class ContentTraceFilter extends OncePerRequestFilter {
 
-    @Autowired
     protected ContentTraceManager traceManager;
 
     @Value("${management.trace.http.tracebody:false}")
     protected boolean traceBody;
+    
+    public ContentTraceFilter(ContentTraceManager traceManager) {
+        super();
+        this.traceManager = traceManager;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
