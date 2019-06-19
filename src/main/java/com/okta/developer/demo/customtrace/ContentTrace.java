@@ -1,5 +1,6 @@
-package org.springframework.boot.actuate.trace.http;
+package com.okta.developer.demo.customtrace;
 
+import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.security.core.Authentication;
 
 public class ContentTrace {
@@ -17,16 +18,16 @@ public class ContentTrace {
         this.httpTrace = httpTrace;
     }
 
+    public Authentication getPrincipal() {
+        return principal;
+    }
+
     public HttpTrace getHttpTrace() {
         return httpTrace;
     }
 
     public void setHttpTrace(HttpTrace httpTrace) {
         this.httpTrace = httpTrace;
-        if (this.principal != null) {
-            this.httpTrace.setPrincipal(principal);
-            this.principal = null;
-        }
     }
 
     public String getRequestBody() {

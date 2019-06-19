@@ -2,8 +2,6 @@ package com.okta.developer.demo.customtrace;
 
 import java.util.List;
 
-import org.springframework.boot.actuate.trace.http.ContentTrace;
-
 public class ContentTraceDescriptor {
 
     protected List<ContentTrace> traces;

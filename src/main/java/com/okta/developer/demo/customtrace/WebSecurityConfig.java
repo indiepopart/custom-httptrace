@@ -1,6 +1,5 @@
 package com.okta.developer.demo.customtrace;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +12,22 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    
     protected HttpTraceFilter httpTraceFilter;
 
-    @Autowired
     protected ContentTraceFilter contentTraceFilter;
-
-    @Autowired
+    
     protected PrincipalTraceFilter principalTraceFilter;
+    
+
+    public WebSecurityConfig(HttpTraceFilter httpTraceFilter,
+            ContentTraceFilter contentTraceFilter,
+            PrincipalTraceFilter principalTraceFilter) {
+        super();
+        this.httpTraceFilter = httpTraceFilter;
+        this.contentTraceFilter = contentTraceFilter;
+        this.principalTraceFilter = principalTraceFilter;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
