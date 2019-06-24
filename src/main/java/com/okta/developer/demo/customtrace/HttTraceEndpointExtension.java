@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class HttTraceEndpointExtension {
 
-    protected CustomHttpTraceRepository repository;
+    private CustomHttpTraceRepository repository;
         
     public HttTraceEndpointExtension(CustomHttpTraceRepository repository) {
         super();

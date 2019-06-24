@@ -15,11 +15,11 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class ActuatorSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected HttpTraceFilter httpTraceFilter;
+    private HttpTraceFilter httpTraceFilter;
 
-    protected ContentTraceFilter contentTraceFilter;
+    private ContentTraceFilter contentTraceFilter;
 
-    protected PrincipalTraceFilter principalTraceFilter;
+    private PrincipalTraceFilter principalTraceFilter;
 
     public ActuatorSecurityConfig(HttpTraceFilter httpTraceFilter,
             ContentTraceFilter contentTraceFilter,

@@ -19,9 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class PrincipalTraceFilter extends OncePerRequestFilter {
 
-    protected ContentTraceManager traceManager;
+    private ContentTraceManager traceManager;
 
-    protected HttpTraceProperties traceProperties;        
+    private HttpTraceProperties traceProperties;        
 
     public PrincipalTraceFilter(ContentTraceManager traceManager,
             HttpTraceProperties traceProperties) {

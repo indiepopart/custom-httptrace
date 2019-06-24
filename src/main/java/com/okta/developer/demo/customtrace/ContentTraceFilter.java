@@ -20,10 +20,10 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class ContentTraceFilter extends OncePerRequestFilter {
 
-    protected ContentTraceManager traceManager;
+    private ContentTraceManager traceManager;
 
     @Value("${management.trace.http.tracebody:false}")
-    protected boolean traceBody;
+    private boolean traceBody;
     
     public ContentTraceFilter(ContentTraceManager traceManager) {
         super();

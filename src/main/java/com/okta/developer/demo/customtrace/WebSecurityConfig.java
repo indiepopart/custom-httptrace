@@ -13,11 +13,11 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     
-    protected HttpTraceFilter httpTraceFilter;
+    private HttpTraceFilter httpTraceFilter;
 
-    protected ContentTraceFilter contentTraceFilter;
+    private ContentTraceFilter contentTraceFilter;
     
-    protected PrincipalTraceFilter principalTraceFilter;
+    private PrincipalTraceFilter principalTraceFilter;
     
 
     public WebSecurityConfig(HttpTraceFilter httpTraceFilter,

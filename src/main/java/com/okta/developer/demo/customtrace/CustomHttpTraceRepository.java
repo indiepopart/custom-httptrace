@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 public class CustomHttpTraceRepository implements HttpTraceRepository {
 
-    protected final List<ContentTrace> contents = new LinkedList<>();
+    private final List<ContentTrace> contents = new LinkedList<>();
 
-    protected ContentTraceManager traceManager;
+    private ContentTraceManager traceManager;
     
     public CustomHttpTraceRepository(ContentTraceManager traceManager) {
         super();
